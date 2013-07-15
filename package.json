@@ -1,0 +1,18 @@
+{
+  "name": "partial-response-middleware",
+  "version": "0.1.0",
+  "description": "Express middleware for filtering-out parts of JSON responses based on the `fields` query-string.",
+  "main": "index.js",
+  "keywords": [
+    "partial-response",
+    "filter",
+    "mask",
+    "select",
+    "fields",
+    "projection",
+    "query",
+    "json"
+  ],
+  "author": "nemtsov@gmail.com",
+  "license": "MIT"
+}
