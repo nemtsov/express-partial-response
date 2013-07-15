@@ -13,6 +13,9 @@
     "query",
     "json"
   ],
+  "dependencies": {
+    "json-mask": "~0.1.0"
+  },
   "author": "nemtsov@gmail.com",
   "license": "MIT"
 }
