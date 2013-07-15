@@ -10,6 +10,9 @@ If you've used the Google APIs, provided a `?fields=` query-string to get a
 and wanted to do the same for your own server, now you can do so with this
 middleware.
 
+*Underneath, this middleware uses [json-mask](https://github.com/nemtsov/json-mask).
+Use it directly without this middleware if you need more flexibility.*
+
 # Installation
 
 ```
