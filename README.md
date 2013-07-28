@@ -16,7 +16,7 @@ Use it directly without this middleware if you need more flexibility.*
 # Installation
 
 ```
-npm isntall express-partial-response
+npm install express-partial-response
 ```
 
 # Usage
