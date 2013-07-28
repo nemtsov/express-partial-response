@@ -1,4 +1,4 @@
-# Express Partial Response Middleware [![NPM version](https://badge.fury.io/js/partial-response-middleware.png)](http://badge.fury.io/js/partial-response-middleware)
+# Express Partial Response Middleware [![NPM version](https://badge.fury.io/js/express-partial-response.png)](http://badge.fury.io/js/express-partial-response)
 
 This Express Middleware will allow you to send a subset of a JSON object
 instead of an entire object from your HTTP services. To do so, your services
