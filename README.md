@@ -16,14 +16,14 @@ Use it directly without this middleware if you need more flexibility.*
 # Installation
 
 ```
-npm isntall partial-response-middleware
+npm isntall express-partial-response
 ```
 
 # Usage
 
 ```js
 var express = require('express')
-  , partialResponse = require('partial-response-middleware')
+  , partialResponse = require('express-partial-response')
   , app = express()
 
 app.use(partialResponse())
