@@ -23,7 +23,7 @@ npm install express-partial-response
 
 ```js
 var express = require('express'),
-  partialResponse = require('../'),
+  partialResponse = require('express-partial-response'),
   app = express();
 
 app.use(partialResponse());
