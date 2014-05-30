@@ -22,26 +22,24 @@ npm install express-partial-response
 # Usage
 
 ```js
-var express = require('express')
-  , partialResponse = require('express-partial-response')
-  , app = express()
+var express = require('express'),
+  partialResponse = require('../'),
+  app = express();
 
-app.use(partialResponse())
+app.use(partialResponse());
 
-app.get('/', function (res, res, next) {
+app.get('/', function(req, res, next) {
   res.json({
-      firstName: 'Mohandas'
-    , lastName: 'Gandhi'
-    , aliases: [{
-          firstName: 'Mahatma'
-        , lastName: 'Gandhi'
-      }, {
-          firstName: 'Bapu'
-      }]
-  })
-})
+    firstName: 'Mohandas',
+    lastName: 'Gandhi',
+    aliases: [
+      { firstName: 'Mahatma', lastName: 'Gandhi' },
+      { firstName: 'Bapu' }
+    ]
+  });
+});
 
-app.listen(4000)
+app.listen(4000);
 ```
 
 Let's test it:
