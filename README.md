@@ -28,7 +28,7 @@ var express = require('express'),
 
 app.use(partialResponse());
 
-app.get('/', function(req, res, next) {
+app.get('/', function (req, res, next) {
   res.json({
     firstName: 'Mohandas',
     lastName: 'Gandhi',
