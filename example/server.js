@@ -10,7 +10,7 @@ var express = require('express'),
 app.use(partialResponse());
 
 // Root route returns JSON
-app.get('/', function(req, res, next) {
+app.get('/', function (req, res, next) {
   res.json({
     firstName: 'Mohandas',
     lastName: 'Gandhi',
@@ -22,7 +22,7 @@ app.get('/', function(req, res, next) {
 });
 
 // Start the server
-app.listen(4000, function() {
+app.listen(4000, function () {
   var prefix = 'curl \'http://localhost:4000?fields=%s\'';
   console.log('Server runnong on :4000, try the following:');
   console.log(prefix, '*');
