@@ -1,36 +1,36 @@
-var jsonMask = require('json-mask')
-  , compile = jsonMask.compile
-  , filter = jsonMask.filter
+'use strict';
+
+
+var jsonMask = require('json-mask'),
+  compile = jsonMask.compile,
+  filter = jsonMask.filter;
+
 
 module.exports = function (opt) {
-  opt = opt || {}
+  opt = opt || {};
 
   function partialResponse(obj, fields) {
-    if (!fields) return obj
-    return filter(obj, compile(fields))
+    return !fields ? obj : filter(obj, compile(fields));
   }
 
-  function wrap(orig) {
+  function wrap(req, res, fn) {
     return function (obj) {
-      var param = this.req.query[opt.query || 'fields']
-      if (1 == arguments.length) {
-        orig(partialResponse(obj, param))
-      } else if (2 == arguments.length) {
-        if ('number' == typeof arguments[1]) {
-          orig(arguments[1], partialResponse(obj, param))
-        } else {
-          orig(obj, partialResponse(arguments[1], param))
-        }
+      var param = this.req.query[opt.query || 'fields'];
+      if (2 === arguments.length) {
+        res.statusCode = obj;
+        obj = arguments[1];
       }
-    }
+      if (typeof obj === 'object') {
+        obj = partialResponse(obj, param);
+      }
+      fn.call(res, obj);
+    };
   }
 
   return function (req, res, next) {
-    if (!res.__isJSONMaskWrapped) {
-      res.json = wrap(res.json.bind(res))
-      res.jsonp = wrap(res.jsonp.bind(res))
-      res.__isJSONMaskWrapped = true
-    }
-    next()
-  }
-}
+    res.json = wrap(req, res, res.json);
+    res.jsonp = wrap(req, res, res.jsonp);
+    next();
+  };
+
+};
