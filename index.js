@@ -39,7 +39,9 @@ module.exports = function (opt) {
     // self-awareness middleware
     if (!res.__isJSONMaskWrapped) {
       res.json = wrap(req, res, res.json);
-      res.jsonp = wrap(req, res, res.jsonp);
+      if (res.jsonp) {
+        res.jsonp = wrap(req, res, res.jsonp);
+      }
       res.__isJSONMaskWrapped = true;
     }
     next();
