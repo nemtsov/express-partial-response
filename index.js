@@ -39,6 +39,7 @@ module.exports = function (opt) {
     // self-awareness middleware
     if (!res.__isJSONMaskWrapped) {
       res.json = wrap(req, res, res.json);
+      // Restify compatibility
       if (res.jsonp) {
         res.jsonp = wrap(req, res, res.jsonp);
       }
