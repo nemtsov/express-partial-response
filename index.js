@@ -28,7 +28,7 @@ module.exports = function (opt) {
   return function (req, res, next) {
     if (!res.__isJSONMaskWrapped) {
       res.json = wrap(res.json.bind(res));
-      res.jsonp = wrap(res.jsonp.bind(res));
+      if (req.jsonp) res.jsonp = wrap(res.jsonp.bind(res));
       res.__isJSONMaskWrapped = true;
     }
     next();
