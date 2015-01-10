@@ -17,5 +17,6 @@
     "json-mask": "0.3.2"
   },
   "author": "nemtsov@gmail.com",
-  "license": "MIT"
+  "license": "MIT",
+  "repository": "nemtsov/express-partial-response",
 }
