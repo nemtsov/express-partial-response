@@ -18,5 +18,8 @@
   },
   "author": "nemtsov@gmail.com",
   "license": "MIT",
-  "repository": "nemtsov/express-partial-response",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/nemtsov/express-partial-response.git"
+  }
 }
