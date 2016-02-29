@@ -12,6 +12,9 @@ module.exports = function (opt) {
 
   function wrap(orig) {
     return function (obj) {
+      if (obj.toJSON) {
+        obj = obj.toJSON() // Add support for Bookshelf models
+      }
       var param = this.req.query[opt.query || 'fields'];
       if (1 === arguments.length) {
         orig(partialResponse(obj, param));
