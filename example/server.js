@@ -1,6 +1,6 @@
-var express = require('express')
-  , partialResponse = require('../')
-  , app = express()
+const express = require('express'), 
+      partialResponse = require('../'), 
+      app = express()
 
 app.use(partialResponse())
 
@@ -15,7 +15,20 @@ app.get('/', function (res, res, next) {
           firstName: 'Bapu'
       }]
   })
-})
+});
+
+app.get('/error', (req, res, next) => {
+    next(new Error("oops something went wrong"));    
+});
+
+app.use((err, req, res, next) => {
+   res.status(500).json({
+      error: err.message,
+      code: res.statusCode 
+   });
+
+   next();
+});
 
 app.listen(4000, function () {
   var prefix = 'curl \'http://localhost:4000?fields=%s\''

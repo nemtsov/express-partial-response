@@ -1,25 +1,24 @@
-var jsonMask = require('json-mask'),
-  compile = jsonMask.compile,
-  filter = jsonMask.filter;
+const { compile, filter } = require('json-mask');
 
 module.exports = function (opt) {
   opt = opt || {};
 
-  function partialResponse(obj, fields) {
-    if (!fields) return obj;
+  function partialResponse (obj, fields) {
+    if (!fields || this.statusCode !== 200) return obj;
     return filter(obj, compile(fields));
   }
 
-  function wrap(orig) {
+  function wrap (orig) {
+    
     return function (obj) {
-      var param = this.req.query[opt.query || 'fields'];
+      let param = this.req.query[opt.query || 'fields'];
       if (1 === arguments.length) {
-        orig(partialResponse(obj, param));
+        orig(partialResponse.call(this, obj, param));
       } else if (2 === arguments.length) {
         if ('number' === typeof arguments[1]) {
-          orig(arguments[1], partialResponse(obj, param));
+          orig(arguments[1], partialResponse.call(this, obj, param));
         } else {
-          orig(obj, partialResponse(arguments[1], param));
+          orig(obj, partialResponse.call(this, arguments[1], param));
         }
       }
     };
