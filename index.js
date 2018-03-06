@@ -15,8 +15,10 @@ module.exports = function (opt) {
         orig(partialResponse(obj, param))
       } else if (2 === arguments.length) {
         if ('number' === typeof arguments[1]) {
+          // res.json(body, status) backwards compat
           orig(arguments[1], partialResponse(obj, param))
         } else {
+          // res.json(status, body) backwards compat
           orig(obj, partialResponse(arguments[1], param))
         }
       }
