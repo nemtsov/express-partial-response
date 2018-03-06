@@ -4,6 +4,7 @@
   "description": "Express middleware for filtering-out parts of JSON responses based on the `fields` query-string.",
   "main": "index.js",
   "keywords": [
+    "express",
     "partial-response",
     "filter",
     "mask",
