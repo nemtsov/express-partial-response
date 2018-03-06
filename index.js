@@ -1,5 +1,7 @@
 const jsonMask = require('json-mask')
 
+const badCode = code => code >= 300 || code < 200
+
 module.exports = function (opt) {
   opt = opt || {}
 
@@ -12,20 +14,26 @@ module.exports = function (opt) {
     return function (obj) {
       const param = this.req.query[opt.query || 'fields']
       if (1 === arguments.length) {
-        orig(partialResponse(obj, param))
-      } else if (2 === arguments.length) {
-        if ('number' === typeof arguments[1]) {
-          // res.json(body, status) backwards compat
-          orig(arguments[1], partialResponse(obj, param))
-        } else {
-          // res.json(status, body) backwards compat
-          orig(obj, partialResponse(arguments[1], param))
-        }
+        return orig(partialResponse(obj, param))
       }
+
+      if ('number' === typeof arguments[1] && !badCode(arguments[1])) {
+        // res.json(body, status) backwards compat
+        return orig(partialResponse(obj, param), arguments[1])
+      }
+
+      if ('number' === typeof obj && !badCode(obj)) {
+        // res.json(status, body) backwards compat
+        return orig(obj, partialResponse(arguments[1], param))
+      }
+
+      // The original actually returns this.send(body)
+      return orig(obj, arguments[1])
     }
   }
 
   return function (req, res, next) {
+    if (badCode(res.statusCode)) return next()
     if (!res.__isJSONMaskWrapped) {
       res.json = wrap(res.json.bind(res))
       if (req.jsonp) res.jsonp = wrap(res.jsonp.bind(res))
