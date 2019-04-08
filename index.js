@@ -13,7 +13,7 @@ module.exports = function (opt) {
   function wrap(orig) {
     return function (obj) {
       const param = this.req.query[opt.query || 'fields']
-      if (1 === arguments.length) {
+      if (1 === arguments.length && !badCode(obj)) {
         return orig(partialResponse(obj, param))
       }
 
@@ -33,7 +33,6 @@ module.exports = function (opt) {
   }
 
   return function (req, res, next) {
-    if (badCode(res.statusCode)) return next()
     if (!res.__isJSONMaskWrapped) {
       res.json = wrap(res.json.bind(res))
       if (req.jsonp) res.jsonp = wrap(res.jsonp.bind(res))
