@@ -13,8 +13,12 @@ module.exports = function (opt) {
   function wrap(orig) {
     return function (obj) {
       const param = this.req.query[opt.query || 'fields']
-      if (1 === arguments.length && !badCode(obj)) {
-        return orig(partialResponse(obj, param))
+      if (1 === arguments.length) {
+        if(badCode(this.statusCode)) {
+          return orig(this.statusCode, arguments[0])
+        } else {
+          return orig(partialResponse(obj, param))
+        }
       }
 
       if ('number' === typeof arguments[1] && !badCode(arguments[1])) {
