@@ -14,7 +14,7 @@
     "json"
   ],
   "dependencies": {
-    "json-mask": "0.3.2"
+    "json-mask": "0.3.8"
   },
   "author": "nemtsov@gmail.com",
   "license": "MIT",
