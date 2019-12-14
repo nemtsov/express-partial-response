@@ -1,31 +1,38 @@
-var jsonMask = require('json-mask'),
-  compile = jsonMask.compile,
-  filter = jsonMask.filter;
+const jsonMask = require('json-mask');
 
-module.exports = function (opt) {
-  opt = opt || {};
+function isBadCode(statusCode) {
+  return statusCode < 200 || statusCode >= 300;
+}
 
-  function partialResponse(obj, fields) {
-    if (!fields) return obj;
-    return filter(obj, compile(fields));
-  }
+module.exports = function(options = {}) {
+  options = { query: 'fields', ...options };
 
-  function wrap(orig) {
-    return function (obj) {
-      var param = this.req.query[opt.query || 'fields'];
-      if (1 === arguments.length) {
-        orig(partialResponse(obj, param));
-      } else if (2 === arguments.length) {
-        if ('number' === typeof arguments[1]) {
-          orig(arguments[1], partialResponse(obj, param));
-        } else {
-          orig(obj, partialResponse(arguments[1], param));
+  function wrap(resJson) {
+    return function(obj) {
+      const fields = this.req.query[options.query];
+
+      // deprecated API that are still supported in v4
+      if (arguments.length > 1) {
+        // res.json(obj, status)
+        if ('number' === typeof arguments[1] && !isBadCode(arguments[1])) {
+          return resJson(jsonMask(obj, fields), arguments[1]);
         }
+
+        // res.json(status, obj)
+        if ('number' === typeof obj && !isBadCode(obj)) {
+          return resJson(obj, jsonMask(arguments[1], fields));
+        }
+
+        return resJson(...arguments);
       }
+
+      return isBadCode(this.statusCode)
+        ? resJson(...arguments)
+        : resJson(jsonMask(obj, fields));
     };
   }
 
-  return function (req, res, next) {
+  return function(req, res, next) {
     if (!res.__isJSONMaskWrapped) {
       res.json = wrap(res.json.bind(res));
       if (req.jsonp) res.jsonp = wrap(res.jsonp.bind(res));
