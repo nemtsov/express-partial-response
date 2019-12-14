@@ -10,8 +10,8 @@ If you've used the Google APIs, provided a `?fields=` query-string to get a
 and wanted to do the same for your own server, now you can do so with this
 middleware.
 
-*Underneath, this middleware uses [json-mask](https://github.com/nemtsov/json-mask).
-Use it directly without this middleware if you need more flexibility.*
+_Underneath, this middleware uses [json-mask](https://github.com/nemtsov/json-mask).
+Use it directly without this middleware if you need more flexibility._
 
 # Installation
 
@@ -22,26 +22,29 @@ npm install express-partial-response
 # Usage
 
 ```js
-const express = require('express')
-const partialResponse = require('express-partial-response')
-const app = express()
+const express = require('express');
+const partialResponse = require('express-partial-response');
+const app = express();
 
-app.use(partialResponse())
+app.use(partialResponse());
 
-app.get('/', function (req, res, next) {
+app.get('/', (req, res) => {
   res.json({
-    firstName: 'Mohandas'
-    , lastName: 'Gandhi'
-    , aliases: [{
-      firstName: 'Mahatma'
-      , lastName: 'Gandhi'
-    }, {
-      firstName: 'Bapu'
-    }]
-  })
-})
+    firstName: 'Mohandas',
+    lastName: 'Gandhi',
+    aliases: [
+      {
+        firstName: 'Mahatma',
+        lastName: 'Gandhi'
+      },
+      {
+        firstName: 'Bapu'
+      }
+    ]
+  });
+});
 
-app.listen(4000)
+app.listen(4000);
 ```
 
 Let's test it:
@@ -70,9 +73,11 @@ Look at [json-mask](https://github.com/nemtsov/json-mask) for the available synt
 `query` specifies the query-string to use. Defaults to `fields`
 
 ```js
-app.use(partialResponse({
-  query: 'filter'
-}))
+app.use(
+  partialResponse({
+    query: 'filter'
+  })
+);
 ```
 
 # License

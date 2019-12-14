@@ -4,7 +4,7 @@ const app = express();
 
 app.use(partialResponse());
 
-app.get('/', function(req, res, next) {
+app.get('/', (req, res) => {
   res.json({
     firstName: 'Mohandas',
     lastName: 'Gandhi',
@@ -20,7 +20,7 @@ app.get('/', function(req, res, next) {
   });
 });
 
-app.listen(4000, function() {
+app.listen(4000, () => {
   const prefix = "curl 'http://localhost:4000?fields=%s'";
   console.log('Server running on :4000, try the following:');
   console.log(prefix, '*');
