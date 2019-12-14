@@ -2,13 +2,10 @@
   "name": "express-partial-response",
   "version": "0.3.4",
   "description": "Express middleware for filtering-out parts of JSON responses based on the `fields` query-string.",
-  "main": "index.js",
-  "author": "nemtsov@gmail.com",
-  "license": "MIT",
-  "repository": {
-    "type": "git",
-    "url": "git://github.com/nemtsov/express-partial-response.git"
+  "dependencies": {
+    "json-mask": "^0.3.9"
   },
+  "main": "index.js",
   "keywords": [
     "express",
     "partial-response",
@@ -20,13 +17,26 @@
     "query",
     "json"
   ],
-  "scripts": {
-    "start": "node ./example/server.js"
+  "engines": {
+    "node": ">=10"
   },
-  "dependencies": {
-    "json-mask": "0.3.8"
+  "husky": {
+    "hooks": {
+      "pre-commit": "pretty-quick --staged"
+    }
+  },
+  "prettier": {
+    "singleQuote": true
+  },
+  "author": "nemtsov@gmail.com",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/nemtsov/express-partial-response.git"
   },
   "devDependencies": {
-    "express": "^4.16.2"
+    "husky": "^3.1.0",
+    "prettier": "1.19.1",
+    "pretty-quick": "^2.0.1"
   }
 }

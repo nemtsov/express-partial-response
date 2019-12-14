@@ -1,26 +1,29 @@
-const express = require('express')
-const partialResponse = require('../')
-const app = express()
+const express = require('express');
+const partialResponse = require('../');
+const app = express();
 
-app.use(partialResponse())
+app.use(partialResponse());
 
-app.get('/', function (req, res, next) {
+app.get('/', function(req, res, next) {
   res.json({
-    firstName: 'Mohandas'
-    , lastName: 'Gandhi'
-    , aliases: [{
-      firstName: 'Mahatma'
-      , lastName: 'Gandhi'
-    }, {
-      firstName: 'Bapu'
-    }]
-  })
-})
+    firstName: 'Mohandas',
+    lastName: 'Gandhi',
+    aliases: [
+      {
+        firstName: 'Mahatma',
+        lastName: 'Gandhi'
+      },
+      {
+        firstName: 'Bapu'
+      }
+    ]
+  });
+});
 
-app.listen(4000, function () {
-  const prefix = 'curl \'http://localhost:4000?fields=%s\''
-  console.log('Server running on :4000, try the following:')
-  console.log(prefix, '*')
-  console.log(prefix, 'lastName')
-  console.log(prefix, 'firstName,aliases(firstName)')
-})
+app.listen(4000, function() {
+  const prefix = "curl 'http://localhost:4000?fields=%s'";
+  console.log('Server running on :4000, try the following:');
+  console.log(prefix, '*');
+  console.log(prefix, 'lastName');
+  console.log(prefix, 'firstName,aliases(firstName)');
+});
