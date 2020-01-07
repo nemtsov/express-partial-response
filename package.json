@@ -35,7 +35,7 @@
     "url": "git://github.com/nemtsov/express-partial-response.git"
   },
   "devDependencies": {
-    "husky": "^3.1.0",
+    "husky": "^4.0.0",
     "prettier": "1.19.1",
     "pretty-quick": "^2.0.1"
   }
