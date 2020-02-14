@@ -1,6 +1,6 @@
 {
   "name": "express-partial-response",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Express middleware for filtering-out parts of JSON responses based on the `fields` query-string.",
   "dependencies": {
     "json-mask": "^1.0.1"
